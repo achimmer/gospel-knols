@@ -57,6 +57,8 @@ const inter = Inter({
   display: "swap",
 });
 
+export const revalidate = 10;
+
 export default async function RootLayout({
   children,
 }: {

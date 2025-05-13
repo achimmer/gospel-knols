@@ -2,7 +2,7 @@
  * Demo data used as placeholders and initial values for the blog
  */
 
-export const title = "Sanity + Next.js";
+export const title = "Gospel Knols";
 
 export const description = [
   {
@@ -56,4 +56,4 @@ export const description = [
   },
 ];
 
-export const ogImageTitle = "A Next.js Blog with a Native Authoring Experience";
+export const ogImageTitle = "Collection of writings and presentations about the restored Gospel of Jesus Christ";
