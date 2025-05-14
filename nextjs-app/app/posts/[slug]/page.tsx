@@ -75,7 +75,7 @@ export default async function PostPage(props: Props) {
       <div className="container my-12 lg:my-24 grid gap-12">
         <div className="pb-6 grid gap-6 mb-6 border-b border-gray-100">
           <div className="max-w-3xl flex flex-col gap-6">
-            <h1 className="text-4xl font-bold tracking-tight text-slate-800 sm:text-5xl lg:text-7xl">
+            <h1 className="text-3xl font-bold tracking-tight text-slate-800 sm:text-4xl lg:text-6xl">
               {post.title}
             </h1>
           </div>
@@ -87,7 +87,7 @@ export default async function PostPage(props: Props) {
               )}
           </div>
         </div>
-        <article className="gap-6 grid max-w-4xl justify-center">
+        <article className="gap-6 grid max-w-4xl justify-items-center">
           <div className="w-full">
             <CoverImage image={post.coverImage} priority />
           </div>
