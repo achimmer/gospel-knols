@@ -16,7 +16,7 @@ const Post = ({ post }: { post: PostType }) => {
     >
     <article
       key={_id}
-        className=" flex max-w-xl flex-col items-start justify-between max-w-sm bg-slate-50 rounded-sm overflow-hidden border border-gray-200 rounded-lg shadow-xs hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        className="flex max-w-xl flex-col items-start justify-between max-w-sm h-full bg-slate-50 rounded-sm overflow-hidden border border-gray-200 rounded-lg shadow-xs hover:bg-gray-100">
 
       <div className="px-6 py-6">
 
@@ -55,7 +55,7 @@ const Posts = ({
     {subHeading && (
       <p className="mt-2 text-lg leading-8 text-gray-400">{subHeading}</p>
     )}
-    <div className="mt-6 pt-6 space-y-12 border-t border-gray-200">
+    <div className="mt-6 pt-6 border-t border-gray-200 grid grid-cols-2 gap-6">
       {children}
     </div>
   </div>
