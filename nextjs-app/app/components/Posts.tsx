@@ -16,7 +16,7 @@ const Post = ({ post }: { post: PostType }) => {
     >
     <article
       key={_id}
-        className="flex max-w-xl flex-col items-start justify-between max-w-sm h-full bg-slate-50 rounded-sm overflow-hidden border border-gray-200 rounded-lg shadow-xs hover:bg-gray-100">
+        className="flex flex-col items-start justify-between h-full bg-slate-50 rounded-sm overflow-hidden border border-gray-200 rounded-lg shadow-xs hover:bg-gray-100">
 
       <div className="px-6 py-6">
 
