@@ -72,8 +72,8 @@ export default async function PostPage(props: Props) {
 
   return (
     <>
-      <div className="container my-12 lg:my-24 grid gap-12 justify-items-center">
-        <div className="pb-6 grid gap-6 mb-6 border-b border-gray-100">
+      <article className="container my-12 lg:my-24 grid gap-12 justify-items-center">
+        <header className="pb-6 grid gap-6 mb-6 border-b border-gray-100">
           <div className="max-w-3xl flex flex-col gap-6">
             <h1 className="text-3xl font-bold tracking-tight text-slate-800 sm:text-4xl lg:text-6xl">
               {post.title}
@@ -86,8 +86,8 @@ export default async function PostPage(props: Props) {
                 <Avatar person={post.author} date={post.date} />
               )}
           </div>
-        </div>
-        <article className="gap-6 grid w-full justify-items-center">
+        </header>
+        <div className="gap-6 grid w-full justify-items-center">
           <div className="w-full">
             <CoverImage image={post.coverImage} priority />
           </div>
@@ -97,16 +97,14 @@ export default async function PostPage(props: Props) {
               value={post.content as PortableTextBlock[]}
             />
           )}
-        </article>
-      </div>
-
-      <div className="border-t border-gray-100">
-        <div className="container my-12 lg:my-24 grid gap-12">
-          <aside>
-            <Suspense>{await MorePosts({ skip: post._id, limit: 2 })}</Suspense>
-          </aside>
         </div>
-      </div>
+      </article>
+
+      <aside className="border-t border-gray-100">
+        <div className="container my-12 lg:my-24 grid gap-12">
+          <Suspense>{await MorePosts({ skip: post._id, limit: 2 })}</Suspense>
+        </div>
+      </aside>
     </>
   );
 }

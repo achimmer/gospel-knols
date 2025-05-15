@@ -13,7 +13,7 @@ export default {
         layer: "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
       },
       colors: {
-        black: "#0d0e12",
+        black: "#353535",
         white: "#fff",
         cyan: {
           50: "#e7fefe",
