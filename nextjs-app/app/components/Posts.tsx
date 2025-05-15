@@ -48,14 +48,14 @@ const Posts = ({
 }) => (
   <div>
     {heading && (
-      <h2 className="text-3xl font-bold tracking-tight text-slate-800 sm:text-4xl lg:text-5xl">
+      <h2 className="text-3xl font-medium tracking-tight text-stone-500 sm:text-4xl lg:text-5xl">
         {heading}
       </h2>
     )}
     {subHeading && (
-      <p className="mt-2 text-lg leading-8 text-gray-400">{subHeading}</p>
+      <p className="mt-2 text-lg leading-8 text-stone-400">{subHeading}</p>
     )}
-    <div className="mt-6 pt-6 border-t border-gray-200 grid grid-cols-2 gap-6">
+    <div className="mt-6 pt-6 border-t border-gray-200 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {children}
     </div>
   </div>
