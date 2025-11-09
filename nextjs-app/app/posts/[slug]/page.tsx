@@ -75,7 +75,7 @@ export default async function PostPage(props: Props) {
       <article className="container my-12 lg:my-24 grid gap-12 justify-items-center">
         <header className="pb-6 grid gap-6 mb-6 border-b border-gray-100">
           <div className="max-w-3xl flex flex-col gap-6">
-            <h1 className="text-3xl font-bold tracking-tight text-slate-800 sm:text-4xl lg:text-6xl">
+            <h1 className="text-3xl font-semibold tracking-tight text-slate-800 sm:text-4xl lg:text-6xl">
               {post.title}
             </h1>
           </div>
