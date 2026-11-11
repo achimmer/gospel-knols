@@ -4,7 +4,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { draftMode } from "next/headers";
-import { VisualEditing, toPlainText } from "next-sanity";
+import { toPlainText } from "next-sanity";
+import { VisualEditing } from "next-sanity/visual-editing";
 import { Toaster } from "sonner";
 
 import DraftModeToast from "@/app/components/DraftModeToast";
@@ -14,6 +15,7 @@ import * as demo from "@/sanity/lib/demo";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
+import { getSiteUrl } from "@/sanity/lib/site-url";
 import { handleError } from "./client-utils";
 
 /**
@@ -30,14 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = settings?.description || demo.description;
 
   const ogImage = resolveOpenGraphImage(settings?.ogImage);
-  let metadataBase: URL | undefined = undefined;
-  try {
-    metadataBase = settings?.ogImage?.metadataBase
-      ? new URL(settings.ogImage.metadataBase)
-      : undefined;
-  } catch {
-    // ignore
-  }
+  const metadataBase = getSiteUrl(settings?.ogImage?.metadataBase);
   return {
     metadataBase,
     title: {
@@ -85,7 +80,7 @@ export default async function RootLayout({
           <main className="">{children}</main>
           <Footer />
         </section>
-        <SpeedInsights />
+        {process.env.VERCEL === "1" && <SpeedInsights />}
       </body>
     </html>
   );

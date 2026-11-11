@@ -1,4 +1,3 @@
-import { type PortableTextBlock } from "next-sanity";
 
 import PortableText from "@/app/components/PortableText";
 import { InfoSection } from "@/sanity.types";
@@ -26,7 +25,7 @@ export default function CTA({ block }: InfoProps) {
           {block?.content?.length && (
             <PortableText
               className=""
-              value={block.content as PortableTextBlock[]}
+              value={block.content}
             />
           )}
         </div>

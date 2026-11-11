@@ -1,0 +1,32 @@
+name: Repository checks
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm install --global npm@10.9.8
+      - run: npm ci
+      - run: npm run extract-types --workspace=studio
+        env:
+          SANITY_STUDIO_PROJECT_ID: ci123456
+          SANITY_STUDIO_DATASET: production
+      - run: npm run typegen --workspace=nextjs-app
+      - run: git diff --exit-code -- studio/schema.json nextjs-app/sanity.types.ts
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm audit

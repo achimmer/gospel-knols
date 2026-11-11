@@ -54,7 +54,7 @@ export const getPageQuery = defineQuery(`
 `);
 
 export const sitemapData = defineQuery(`
-  *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {
+  *[_type in ["page", "post"] && defined(slug.current)] | order(_type asc) {
     "slug": slug.current,
     _type,
     _updatedAt,
@@ -75,6 +75,12 @@ export const morePostsQuery = defineQuery(`
 
 export const postQuery = defineQuery(`
   *[_type == "post" && slug.current == $slug] [0] {
+    attachments[]{
+      _key,
+      label,
+      description,
+      asset->{url, originalFilename, mimeType, size, extension}
+    },
     content[]{
     ...,
     markDefs[]{

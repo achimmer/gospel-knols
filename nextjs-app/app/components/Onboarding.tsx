@@ -8,7 +8,6 @@
 import Link from "next/link";
 import { useIsPresentationTool } from "next-sanity/hooks";
 import { createDataAttribute } from "next-sanity";
-import { uuid } from "@sanity/uuid";
 
 import { studioUrl } from "@/sanity/lib/api";
 
@@ -64,7 +63,7 @@ const OnboardingMessage = ({
           <button
             className="cursor-pointer inline-flex rounded-full gap-2 items-center bg-white text-red-500 hover:bg-red-100 focus:bg-red-200 py-3 px-6 transition-colors duration-200"
             data-sanity={createDataAttribute({
-              id: uuid(),
+              id: crypto.randomUUID(),
               type,
               path,
             }).toString()}

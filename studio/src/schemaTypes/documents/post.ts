@@ -1,6 +1,6 @@
-import {DocumentTextIcon} from '@sanity/icons'
+import {DocumentTextIcon} from '@sanity/icons/DocumentText'
 import {format, parseISO} from 'date-fns'
-import {defineField, defineType} from 'sanity'
+import {defineArrayMember, defineField, defineType} from 'sanity'
 
 /**
  * Post schema.  Define and edit the fields for the 'post' content type.
@@ -40,6 +40,30 @@ export const post = defineType({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
+    }),
+    defineField({
+      name: 'attachments',
+      title: 'Downloads',
+      description: 'Optional files readers can download, such as a PDF or study notes.',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'file',
+          title: 'Downloadable file',
+          options: {storeOriginalFilename: true},
+          validation: (rule) => rule.required().assetRequired(),
+          fields: [
+            defineField({
+              name: 'label',
+              title: 'Download title',
+              type: 'string',
+              description: 'For example: Download the study guide',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({name: 'description', title: 'Description', type: 'text', rows: 2}),
+          ],
+        }),
+      ],
     }),
     defineField({
       name: 'coverImage',

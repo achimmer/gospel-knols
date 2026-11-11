@@ -1,8 +1,8 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
-import { type PortableTextBlock } from "next-sanity";
 import { Suspense } from "react";
 
+import ArticleDownloads from "@/app/components/ArticleDownloads";
 import Avatar from "@/app/components/Avatar";
 import CoverImage from "@/app/components/CoverImage";
 import { MorePosts } from "@/app/components/Posts";
@@ -94,9 +94,10 @@ export default async function PostPage(props: Props) {
           {post.content?.length && (
             <PortableText
               className="max-w-2xl"
-              value={post.content as PortableTextBlock[]}
+              value={post.content}
             />
           )}
+          <ArticleDownloads attachments={post.attachments} />
         </div>
       </article>
 

@@ -18,6 +18,23 @@ export const blockContent = defineType({
   type: 'array',
   of: [
     defineArrayMember({
+      type: 'image',
+      title: 'Article image',
+      options: {hotspot: true},
+      validation: (rule) => rule.required().assetRequired(),
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alternative text',
+          type: 'string',
+          description: 'Describe the image for readers who cannot see it.',
+          validation: (rule) => rule.required(),
+        }),
+        defineField({name: 'caption', title: 'Caption', type: 'string'}),
+        defineField({name: 'credit', title: 'Image credit', type: 'string'}),
+      ],
+    }),
+    defineArrayMember({
       type: 'block',
       marks: {
         annotations: [

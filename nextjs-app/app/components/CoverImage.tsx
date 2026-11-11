@@ -23,7 +23,7 @@ export default function CoverImage(props: CoverImageProps) {
           .url() as string
       }
       sizes="100vw"
-      priority={priority}
+      preload={priority}
     />
   ) : (
     <div className="bg-slate-50" style={{ paddingTop: "100%" }} />

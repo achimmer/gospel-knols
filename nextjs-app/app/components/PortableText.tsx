@@ -1,97 +1,88 @@
-/**
- * This component uses Portable Text to render a post body.
- *
- * You can learn more about Portable Text on:
- * https://www.sanity.io/docs/block-content
- * https://github.com/portabletext/react-portabletext
- * https://portabletext.org/
- *
- */
+import type { ReactNode } from "react";
+import { PortableText, toPlainText, type PortableTextBlock, type PortableTextComponents } from "next-sanity";
+import { Image } from "next-sanity/image";
+import { getImageDimensions } from "@sanity/asset-utils";
+import { stegaClean } from "@sanity/client/stega";
 
-import {
-  PortableText,
-  type PortableTextComponents,
-  type PortableTextBlock,
-} from "next-sanity";
-
+import type { BlockContent, PostQueryResult } from "@/sanity.types";
 import ResolvedLink from "@/app/components/ResolvedLink";
+import { urlForImage } from "@/sanity/lib/utils";
 
-export default function CustomPortableText({
-  className,
-  value,
-}: {
-  className?: string;
-  value: PortableTextBlock[];
-}) {
-  const components: PortableTextComponents = {
-    block: {
-      h1: ({ children, value }) => (
-        // Add an anchor to the h1
-        <h1 className="group relative">
-          {children}
-          <a
-            href={`#${value?._key}`}
-            className="absolute left-0 top-0 bottom-0 -ml-6 flex items-center opacity-0 group-hover:opacity-100 transition-opacity"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-              />
-            </svg>
-          </a>
-        </h1>
-      ),
-      h2: ({ children, value }) => {
-        // Add an anchor to the h2
-        return (
-          <h2 className="group relative">
-            {children}
-            <a
-              href={`#${value?._key}`}
-              className="absolute left-0 top-0 bottom-0 -ml-6 flex items-center opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                />
-              </svg>
-            </a>
-          </h2>
-        );
-      },
-    },
-    marks: {
-      link: ({ children, value: link }) => {
-        return <ResolvedLink link={link}>{children}</ResolvedLink>;
-      },
-    },
-  };
+type ContentBlock = BlockContent[number] | NonNullable<NonNullable<PostQueryResult>["content"]>[number];
 
+type HeadingProps = {
+  children?: ReactNode;
+  value: PortableTextBlock;
+  level: 1 | 2 | 3 | 4 | 5 | 6;
+};
+
+function Heading({ children, value, level }: HeadingProps) {
+  const Tag = `h${level}` as const;
+  const id = value._key;
+  const label = toPlainText(value) || "section";
   return (
-    <div
-      className={["prose prose-a:text-red-500", className]
-        .filter(Boolean)
-        .join(" ")}
-    >
-      <PortableText components={components} value={value} />
+    <Tag id={id} className="group relative scroll-mt-28">
+      {children}
+      {id && (
+        <a
+          href={`#${id}`}
+          aria-label={`Link to ${stegaClean(label)}`}
+          className="ml-2 inline-block text-sm opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 focus:opacity-100"
+        >
+          <span aria-hidden="true">#</span>
+        </a>
+      )}
+    </Tag>
+  );
+}
+
+const components: PortableTextComponents = {
+  block: {
+    h1: (props) => <Heading {...props} level={1} />,
+    h2: (props) => <Heading {...props} level={2} />,
+    h3: (props) => <Heading {...props} level={3} />,
+    h4: (props) => <Heading {...props} level={4} />,
+    h5: (props) => <Heading {...props} level={5} />,
+    h6: (props) => <Heading {...props} level={6} />,
+  },
+  types: {
+    image: ({ value }: { value: Extract<BlockContent[number], { _type: "image" }> }) => {
+      const builder = urlForImage(value);
+      if (!builder) return null;
+      const dimensions = getImageDimensions(value.asset!);
+      const crop = value.crop;
+      const width = Math.max(1, Math.round(dimensions.width * (1 - (crop?.left || 0) - (crop?.right || 0))));
+      const height = Math.max(1, Math.round(dimensions.height * (1 - (crop?.top || 0) - (crop?.bottom || 0))));
+      return (
+        <figure>
+          <Image
+            src={builder.width(Math.min(width, 1600)).url()}
+            alt={stegaClean(value.alt || "")}
+            width={width}
+            height={height}
+            sizes="(max-width: 768px) calc(100vw - 4rem), 672px"
+            className="h-auto w-full rounded-lg"
+          />
+          {(value.caption || value.credit) && (
+            <figcaption className="text-sm text-stone-600">
+              {value.caption}
+              {value.caption && value.credit && " — "}
+              {value.credit}
+            </figcaption>
+          )}
+        </figure>
+      );
+    },
+  },
+  marks: {
+    link: ({ children, value: link }) => <ResolvedLink link={link}>{children}</ResolvedLink>,
+  },
+};
+
+export default function CustomPortableText({ className, value }: { className?: string; value: ContentBlock[] }) {
+  return (
+    <div className={["prose min-w-0 w-full [overflow-wrap:anywhere] prose-a:text-red-500", className].filter(Boolean).join(" ")}>
+      <PortableText<ContentBlock> components={components} value={value} />
     </div>
   );
 }

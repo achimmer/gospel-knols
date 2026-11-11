@@ -10,35 +10,40 @@
     "prebuild": "npm run extract-types",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "extract-types": "sanity schema extract --enforce-required-fields"
+    "extract-types": "sanity schema extract --enforce-required-fields --force",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "sanity"
   ],
   "dependencies": {
-    "@sanity/assist": "^3.2.0",
-    "@sanity/icons": "^3.5.0",
-    "@sanity/vision": "^3.77.0",
+    "@sanity/assist": "6.3.0",
+    "@sanity/icons": "5.3.0",
+    "@sanity/vision": "6.23.0",
     "date-fns": "^3.6.0",
     "pluralize-esm": "^9.0.5",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "rxjs": "^7.8.1",
-    "sanity": "^3.77.0",
-    "sanity-plugin-asset-source-unsplash": "^3.0.1",
-    "styled-components": "^6.1.13"
+    "sanity": "6.23.0",
+    "sanity-plugin-asset-source-unsplash": "7.0.31",
+    "styled-components": "^6.6.0"
   },
   "devDependencies": {
-    "@sanity/eslint-config-studio": "^4.0.0",
-    "@types/react": "^18.3.12",
-    "eslint": "^8.6.0",
+    "@sanity/eslint-config-studio": "7.0.0",
+    "@types/react": "^19.3.0",
+    "eslint": "^10.14.0",
     "prettier": "^3.3.3",
-    "typescript": "^5.6.3"
+    "typescript": "~5.9.3"
   },
   "prettier": {
     "semi": false,
     "printWidth": 100,
     "bracketSpacing": false,
     "singleQuote": true
+  },
+  "engines": {
+    "node": ">=22.13.0 <23"
   }
 }
