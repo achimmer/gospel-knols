@@ -1,33 +1,17 @@
-import { stegaClean } from "@sanity/client/stega";
-import { Image } from "next-sanity/image";
+import {stegaClean} from "@sanity/client/stega";
+import {Image} from "next-sanity/image";
+import {urlForImage} from "@/sanity/lib/utils";
+import type {AllPostsQueryResult} from "@/sanity.types";
 
-import { urlForImage } from "@/sanity/lib/utils";
-
-interface CoverImageProps {
-  image: any;
+type Props = {
+  image: AllPostsQueryResult[number]["coverImage"];
   priority?: boolean;
-}
+  className?: string;
+  sizes?: string;
+};
 
-export default function CoverImage(props: CoverImageProps) {
-  const { image: source, priority } = props;
-  const image = source?.asset?._ref ? (
-    <Image
-      className="rounded-2xl shadow-md transition-shadow object-cover"
-      fill={true}
-      alt={stegaClean(source?.alt) || ""}
-      src={
-        urlForImage(source)
-          ?.height(720)
-          .width(1280)
-          .auto("format")
-          .url() as string
-      }
-      sizes="100vw"
-      preload={priority}
-    />
-  ) : (
-    <div className="bg-slate-50" style={{ paddingTop: "100%" }} />
-  );
-
-  return <div className="relative aspect-video">{image}</div>;
+export default function CoverImage({image, priority = false, className = "", sizes = "(max-width: 768px) calc(100vw - 48px), 760px"}: Props) {
+  const builder = urlForImage(image);
+  if (!builder) return null;
+  return <div className={`cover-image ${className}`}><Image fill alt={stegaClean(image?.alt || "")} src={builder.width(1280).height(720).fit("crop").url()} sizes={sizes} preload={priority} className="object-cover" /></div>;
 }

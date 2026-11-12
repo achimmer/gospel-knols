@@ -14,8 +14,8 @@ export default function ArticleDownloads({ attachments }: { attachments?: Attach
   if (!downloads?.length) return null;
 
   return (
-    <section aria-labelledby="article-downloads" className="w-full max-w-2xl border-t border-stone-200 pt-8">
-      <h2 id="article-downloads" className="text-xl font-semibold text-stone-800">Downloads</h2>
+    <section aria-labelledby="article-downloads" className="downloads-section">
+      <h2 id="article-downloads" className="font-editorial text-2xl text-ink">Downloads</h2>
       <ul className="mt-4 space-y-4">
         {downloads.map(({ _key, label, description, asset }) => {
           if (!asset?.url) return null;
@@ -25,11 +25,11 @@ export default function ArticleDownloads({ attachments }: { attachments?: Attach
           const metadata = [asset.extension?.toUpperCase(), asset.size != null ? formatFileSize(asset.size) : null].filter(Boolean).join(" · ");
           return (
             <li key={_key}>
-              <a href={url.href} download className="break-words font-medium text-red-600 underline underline-offset-4 hover:text-red-800 focus-visible:outline-2 focus-visible:outline-offset-4">
+              <a href={url.href} download className="break-words font-medium text-forest underline underline-offset-4 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4">
                 {label || asset.originalFilename || "Download file"}
               </a>
-              {metadata && <span className="ml-2 text-sm text-stone-500">({metadata})</span>}
-              {description && <p className="mt-1 text-sm text-stone-600">{description}</p>}
+              {metadata && <span className="ml-2 text-sm text-muted">({metadata})</span>}
+              {description && <p className="mt-1 text-sm text-muted">{description}</p>}
             </li>
           );
         })}

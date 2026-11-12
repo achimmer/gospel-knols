@@ -2,7 +2,7 @@ import "./globals.css";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Source_Serif_4 } from "next/font/google";
 import { draftMode } from "next/headers";
 import { toPlainText } from "next-sanity";
 import { VisualEditing } from "next-sanity/visual-editing";
@@ -40,6 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
       default: title,
     },
     description: toPlainText(description),
+    alternates: { types: { "application/rss+xml": "/feed.xml" } },
     openGraph: {
       images: ogImage ? [ogImage] : [],
     },
@@ -48,6 +49,13 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const sourceSerif = Source_Serif_4({
+  style: ["normal", "italic"],
+  variable: "--font-source-serif",
   subsets: ["latin"],
   display: "swap",
 });
@@ -62,9 +70,10 @@ export default async function RootLayout({
   const { isEnabled: isDraftMode } = await draftMode();
 
   return (
-    <html lang="en" className={`${inter.variable} bg-stone-100 text-neutral-900`}>
+    <html lang="en" className={`${inter.variable} ${sourceSerif.variable}`}>
       <body>
-        <section className="min-h-screen pt-24">
+        <div className="site-layout">
+          <a href="#main-content" className="skip-link">Skip to content</a>
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
           <Toaster />
           {isDraftMode && (
@@ -77,9 +86,9 @@ export default async function RootLayout({
           {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
           <SanityLive onError={handleError} />
           <Header />
-          <main className="">{children}</main>
+          <main id="main-content" tabIndex={-1}>{children}</main>
           <Footer />
-        </section>
+        </div>
         {process.env.VERCEL === "1" && <SpeedInsights />}
       </body>
     </html>
