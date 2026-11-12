@@ -56,6 +56,12 @@ export const settings = defineType({
       ],
     }),
     defineField({
+      name: 'standardDisclaimer',
+      title: 'Standard article disclaimer',
+      type: 'blockContent',
+      description: 'Shared wording for posts set to Standard disclaimer. Changes apply to all those posts. The website adds the heading. Publish this before using Standard on new posts.',
+    }),
+    defineField({
       name: 'ogImage',
       title: 'Open Graph Image',
       type: 'image',

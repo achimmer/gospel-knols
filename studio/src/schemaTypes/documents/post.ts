@@ -37,6 +37,34 @@ export const post = defineType({
       type: 'blockContent',
     }),
     defineField({
+      name: 'references',
+      title: 'References',
+      type: 'blockContent',
+      description: 'Optional closing source list. Keep inline citations in Content. The website adds the References heading.',
+    }),
+    defineField({
+      name: 'disclaimerMode',
+      title: 'Disclaimer',
+      type: 'string',
+      initialValue: 'standard',
+      description: 'Existing posts without a selection keep their disclaimer in Content. Standard wording is managed in Settings.',
+      options: {list: [
+        {title: 'Standard disclaimer (from Settings)', value: 'standard'},
+        {title: 'Custom disclaimer', value: 'custom'},
+        {title: 'None', value: 'none'},
+      ], layout: 'radio'},
+    }),
+    defineField({
+      name: 'customDisclaimer',
+      title: 'Custom disclaimer',
+      type: 'blockContent',
+      description: 'The website adds the Disclaimer heading.',
+      hidden: ({document}) => document?.disclaimerMode !== 'custom',
+      validation: (rule) => rule.custom((value, context) =>
+        context.document?.disclaimerMode === 'custom' && (!Array.isArray(value) || !value.length)
+          ? 'Add the custom disclaimer or choose another option.' : true),
+    }),
+    defineField({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',

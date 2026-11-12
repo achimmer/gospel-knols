@@ -7,8 +7,9 @@ import { stegaClean } from "@sanity/client/stega";
 import type { BlockContent, PostQueryResult } from "@/sanity.types";
 import ResolvedLink from "@/app/components/ResolvedLink";
 import { urlForImage } from "@/sanity/lib/utils";
+import { articleSections } from "@/sanity/lib/article";
 
-type ContentBlock = BlockContent[number] | NonNullable<NonNullable<PostQueryResult>["content"]>[number];
+export type ContentBlock = BlockContent[number] | NonNullable<NonNullable<PostQueryResult>["content"]>[number];
 
 type HeadingProps = {
   children?: ReactNode;
@@ -27,7 +28,7 @@ function Heading({ children, value, level }: HeadingProps) {
         <a
           href={`#${id}`}
           aria-label={`Link to ${stegaClean(label)}`}
-          className="ml-2 inline-block text-sm opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 focus:opacity-100"
+          className="heading-anchor ml-2 inline-block text-sm opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 focus:opacity-100"
         >
           <span aria-hidden="true">#</span>
         </a>
@@ -79,10 +80,26 @@ const components: PortableTextComponents = {
   },
 };
 
-export default function CustomPortableText({ className, value }: { className?: string; value: ContentBlock[] }) {
+export default function CustomPortableText({ className, value, headingOffset = 0, editorialSections = false }: { className?: string; value: ContentBlock[]; headingOffset?: number; editorialSections?: boolean }) {
+  const shifted = (level: number) => Math.min(6, level + headingOffset) as HeadingProps["level"];
+  const articleComponents: PortableTextComponents = {
+    ...components,
+    block: {
+      h1: (props) => <Heading {...props} level={shifted(1)} />,
+      h2: (props) => <Heading {...props} level={shifted(2)} />,
+      h3: (props) => <Heading {...props} level={shifted(3)} />,
+      h4: (props) => <Heading {...props} level={shifted(4)} />,
+      h5: (props) => <Heading {...props} level={shifted(5)} />,
+      h6: (props) => <Heading {...props} level={shifted(6)} />,
+    },
+  };
   return (
-    <div className={["prose min-w-0 w-full [overflow-wrap:anywhere] prose-a:text-red-500", className].filter(Boolean).join(" ")}>
-      <PortableText<ContentBlock> components={components} value={value} />
+    <div className={["prose min-w-0 w-full [overflow-wrap:anywhere]", className].filter(Boolean).join(" ")}>
+      {editorialSections ? articleSections(value).map((section) => section.kind === "body"
+        ? <PortableText<ContentBlock> key={section.blocks[0]._key} components={articleComponents} value={section.blocks} />
+        : <section key={section.blocks[0]._key} className={`article-endmatter article-${section.kind}`} aria-labelledby={section.blocks[0]._key}>
+            <PortableText<ContentBlock> components={articleComponents} value={section.blocks} />
+          </section>) : <PortableText<ContentBlock> components={articleComponents} value={value} />}
     </div>
   );
 }
