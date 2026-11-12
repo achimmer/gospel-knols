@@ -27,3 +27,13 @@ The website and Studio now use Next.js 16 and Sanity 6. Use Node 22 LTS and npm 
 After the Next.js 16 / Sanity 6 upgrade, schema extraction and type generation passed. Both production builds passed under Node 22, as did frontend lint and TypeScript checks. Local browser checks covered desktop/mobile body images, captions, missing assets, heading anchors and keyboard visibility, attachment link formatting, existing articles, and sitemap independence from request Host headers. Sample content was used only in a temporary local route and removed afterward; no content was uploaded or published. A real attachment upload/download remains an editor acceptance check.
 
 Studio's automatic runtime updates remain enabled, so its hosted runtime can differ from the locally locked version. Dependency audit results and the operational limits of the security review are documented in DEPENDENCY-MAINTENANCE.md.
+
+## References and disclaimers (local implementation)
+
+Posts have optional **References**, a **Disclaimer** selector (Standard / Custom / None), and a conditional **Custom disclaimer** editor. Keep inline citations in Content. Do not repeat the closing section headings in the new fields; the template supplies them.
+
+Set and publish **Settings → Standard article disclaimer** before choosing Standard on a new post. This is shared text: changing it updates all posts using Standard. No default wording has been published or inserted into existing documents. New posts start with Standard selected; existing posts without a selection retain their existing Content sections.
+
+The website prefers a populated References field over a detected References section in Content, and a populated selected disclaimer over the detected Disclaimer section. None explicitly hides the detected disclaimer. Empty new fields preserve the existing section, including when shared wording has not yet been configured. Hidden custom text is ignored unless Custom is selected. Existing article records have not been migrated.
+
+To migrate a post later, move its closing source list and disclaimer into the appropriate fields, review the preview and publish deliberately. Do not remove inline citations. These schema and template changes must be deployed before they are available in the hosted Studio and website.

@@ -81,6 +81,10 @@ export const postQuery = defineQuery(`
       description,
       asset->{url, originalFilename, mimeType, size, extension}
     },
+    disclaimerMode,
+    references[]{..., markDefs[]{..., ${linkReference}}},
+    customDisclaimer[]{..., markDefs[]{..., ${linkReference}}},
+    "standardDisclaimer": *[_type == "settings"][0].standardDisclaimer[]{..., markDefs[]{..., ${linkReference}}},
     content[]{
     ...,
     markDefs[]{

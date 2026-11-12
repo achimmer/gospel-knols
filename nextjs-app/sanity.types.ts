@@ -96,6 +96,59 @@ export type BlockContent = Array<
     }
 >;
 
+export type Settings = {
+  _id: string;
+  _type: "settings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: never;
+    markDefs?: Array<{
+      href: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  standardDisclaimer?: BlockContent;
+  ogImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    metadataBase?: string;
+    _type: "image";
+  };
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+};
+
 export type Page = {
   _id: string;
   _type: "page";
@@ -139,6 +192,9 @@ export type Post = {
   title: string;
   slug: Slug;
   content?: BlockContent;
+  references?: BlockContent;
+  disclaimerMode?: "standard" | "custom" | "none";
+  customDisclaimer?: BlockContent;
   excerpt?: string;
   attachments?: Array<{
     asset: SanityFileAssetReference;
@@ -178,62 +234,10 @@ export type Person = {
   };
 };
 
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
-};
-
 export type Slug = {
   _type: "slug";
   current: string;
   source?: string;
-};
-
-export type Settings = {
-  _id: string;
-  _type: "settings";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal";
-    listItem?: never;
-    markDefs?: Array<{
-      href: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  ogImage?: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    metadataBase?: string;
-    _type: "image";
-  };
 };
 
 export type SanityAssistInstructionTask = {
@@ -478,15 +482,15 @@ export type AllSanitySchemaTypes =
   | InfoSection
   | SanityImageAssetReference
   | BlockContent
+  | Settings
+  | SanityImageCrop
+  | SanityImageHotspot
   | Page
   | SanityFileAssetReference
   | PersonReference
   | Post
   | Person
-  | SanityImageCrop
-  | SanityImageHotspot
   | Slug
-  | Settings
   | SanityAssistInstructionTask
   | SanityAssistTaskStatus
   | SanityAssistSchemaTypeAnnotations
@@ -537,6 +541,7 @@ export type SettingsQueryResult = {
     _type: "block";
     _key: string;
   }>;
+  standardDisclaimer?: BlockContent;
   ogImage?: {
     asset?: SanityImageAssetReference;
     media?: unknown;
@@ -709,7 +714,7 @@ export type MorePostsQueryResult = Array<{
 
 // Source: sanity/lib/queries.ts
 // Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug] [0] {    attachments[]{      _key,      label,      description,      asset->{url, originalFilename, mimeType, size, extension}    },    content[]{    ...,    markDefs[]{      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
+// Query: *[_type == "post" && slug.current == $slug] [0] {    attachments[]{      _key,      label,      description,      asset->{url, originalFilename, mimeType, size, extension}    },    disclaimerMode,    references[]{..., markDefs[]{...,   _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }}},    customDisclaimer[]{..., markDefs[]{...,   _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }}},    "standardDisclaimer": *[_type == "settings"][0].standardDisclaimer[]{..., markDefs[]{...,   _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }}},    content[]{    ...,    markDefs[]{      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
 export type PostQueryResult = {
   attachments: Array<{
     _key: string;
@@ -723,6 +728,118 @@ export type PostQueryResult = {
       extension: string;
     };
   }> | null;
+  disclaimerMode: "custom" | "none" | "standard" | null;
+  references: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs: Array<{
+          linkType?: "href" | "page" | "post";
+          href?: string;
+          page: string | null;
+          post: string | null;
+          openInNewTab?: boolean;
+          _type: "link";
+          _key: string;
+        }> | null;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt: string;
+        caption?: string;
+        credit?: string;
+        _type: "image";
+        _key: string;
+        markDefs: null;
+      }
+  > | null;
+  customDisclaimer: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs: Array<{
+          linkType?: "href" | "page" | "post";
+          href?: string;
+          page: string | null;
+          post: string | null;
+          openInNewTab?: boolean;
+          _type: "link";
+          _key: string;
+        }> | null;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt: string;
+        caption?: string;
+        credit?: string;
+        _type: "image";
+        _key: string;
+        markDefs: null;
+      }
+  > | null;
+  standardDisclaimer: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs: Array<{
+          linkType?: "href" | "page" | "post";
+          href?: string;
+          page: string | null;
+          post: string | null;
+          openInNewTab?: boolean;
+          _type: "link";
+          _key: string;
+        }> | null;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt: string;
+        caption?: string;
+        credit?: string;
+        _type: "image";
+        _key: string;
+        markDefs: null;
+      }
+  > | null;
   content: Array<
     | {
         children?: Array<{
@@ -810,7 +927,7 @@ declare global {
     '\n  *[_type in ["page", "post"] && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult;
     '\n  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': AllPostsQueryResult;
     '\n  *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': MorePostsQueryResult;
-    '\n  *[_type == "post" && slug.current == $slug] [0] {\n    attachments[]{\n      _key,\n      label,\n      description,\n      asset->{url, originalFilename, mimeType, size, extension}\n    },\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': PostQueryResult;
+    '\n  *[_type == "post" && slug.current == $slug] [0] {\n    attachments[]{\n      _key,\n      label,\n      description,\n      asset->{url, originalFilename, mimeType, size, extension}\n    },\n    disclaimerMode,\n    references[]{..., markDefs[]{..., \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n}},\n    customDisclaimer[]{..., markDefs[]{..., \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n}},\n    "standardDisclaimer": *[_type == "settings"][0].standardDisclaimer[]{..., markDefs[]{..., \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n}},\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': PostQueryResult;
     '\n  *[_type == "post" && defined(slug.current)]\n  {"slug": slug.current}\n': PostPagesSlugsResult;
     '\n  *[_type == "page" && defined(slug.current)]\n  {"slug": slug.current}\n': PagesSlugsResult;
   }
