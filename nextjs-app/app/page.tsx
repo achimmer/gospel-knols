@@ -26,7 +26,7 @@ export default async function HomePage() {
           <p className="hero-description">Essays on scripture, discipleship, and the restored gospel of Jesus Christ, by Richard P. Himmer.</p>
           <p className="hero-invitation">Explore connections across scripture, examine challenging questions, and find ideas worth carrying into your own study.</p>
           <div className="mt-8 flex flex-wrap items-center gap-5">
-            <Link href="#essays" className="button-primary">Explore the essays <Arrow /></Link>
+            <a href="#essays" className="button-primary">Explore the essays <Arrow /></a>
             <Link href="/about" className="text-link">Meet the author <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
@@ -40,7 +40,7 @@ export default async function HomePage() {
           </div>
         </Link>}
       </section>
-      <section id="essays" className="collection-section scroll-mt-24">
+      <section id="essays" className="collection-section">
         <div className="page-shell">
           <div className="section-heading"><div><p className="eyebrow">The collection</p><h2 className="section-title">Ideas to spend time with.</h2></div><p>A different way to look at the restored gospel.</p></div>
           <EssayList posts={posts} />
