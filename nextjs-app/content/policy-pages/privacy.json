@@ -1,0 +1,313 @@
+{
+  "_id": "policy-privacy",
+  "_type": "page",
+  "name": "Privacy Policy",
+  "slug": {
+    "_type": "slug",
+    "current": "privacy"
+  },
+  "heading": "Privacy Policy",
+  "subheading": "How Gospel Knols handles information, cookies, and third-party services. Last updated November 13, 2026.",
+  "pageBuilder": [
+    {
+      "_type": "infoSection",
+      "_key": "section-0",
+      "heading": "Who operates this site",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p0-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s0-0",
+              "text": "Gospel Knols is an independent publication owned and operated by Richard P. Himmer in Texas, United States. This notice describes information handled when you read gospelknols.org or download its files.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "infoSection",
+      "_key": "section-1",
+      "heading": "Reading the site",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p1-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s1-0",
+              "text": "You do not need a reader account to read articles or download available files. The site does not currently provide reader comments, newsletter subscriptions, purchases, or a public contact form. Richard has maintained an email list in the past, but no newsletter is currently active. This notice does not describe how that historical list was collected or is retained. Before a newsletter is introduced, we will update this notice to explain the email provider, information collected, subscription choices, and how to unsubscribe.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p1-1",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s1-1",
+              "text": "Our hosting and content-delivery providers process technical requests needed to deliver and protect the site. These can include an IP address, requested address, browser and device information, timestamps, and error or security information.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "infoSection",
+      "_key": "section-2",
+      "heading": "Hosting and content delivery",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p2-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s2-0",
+              "text": "Vercel hosts the website. Sanity stores and delivers article content, images, and downloadable files. Your browser may connect to these providers when loading pages. We use these services to publish the writing, deliver files, maintain security, and resolve technical problems.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p2-1",
+          "style": "normal",
+          "markDefs": [
+            {
+              "_type": "link",
+              "_key": "l2-1",
+              "linkType": "href",
+              "href": "https://vercel.com/legal/privacy-notice"
+            }
+          ],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s2-1",
+              "text": "Vercel Privacy Notice",
+              "marks": [
+                "l2-1"
+              ]
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p2-2",
+          "style": "normal",
+          "markDefs": [
+            {
+              "_type": "link",
+              "_key": "l2-2",
+              "linkType": "href",
+              "href": "https://www.sanity.io/legal/privacy"
+            }
+          ],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s2-2",
+              "text": "Sanity Privacy Policy",
+              "marks": [
+                "l2-2"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "infoSection",
+      "_key": "section-3",
+      "heading": "Performance monitoring",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p3-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s3-0",
+              "text": "The site includes Vercel Speed Insights to measure page performance, such as loading speed and visual stability. Vercel describes these performance measurements as anonymous and not associated with an individual visitor or IP address. Performance measurements are used to understand and improve how the site works; they are not a statement that no technical information is processed by our hosting providers.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p3-1",
+          "style": "normal",
+          "markDefs": [
+            {
+              "_type": "link",
+              "_key": "l3-1",
+              "linkType": "href",
+              "href": "https://vercel.com/docs/speed-insights/privacy-policy"
+            }
+          ],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s3-1",
+              "text": "Vercel Speed Insights privacy information",
+              "marks": [
+                "l3-1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "infoSection",
+      "_key": "section-4",
+      "heading": "Cookies and browser storage",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p4-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s4-0",
+              "text": "The public reading experience does not intentionally use advertising cookies, advertising pixels, or cross-site advertising profiles. Administrator sign-in and editorial preview tools are separate from ordinary reading and may use cookies or browser storage for authentication and preview sessions.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p4-1",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s4-1",
+              "text": "You can manage cookies and site storage in your browser. Blocking storage may affect administrator or preview features. Following an external link takes you to another service with its own privacy and cookie practices. If we introduce optional tracking or embedded services, we will review this notice and any consent requirements before enabling them.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "infoSection",
+      "_key": "section-5",
+      "heading": "Sharing and printing",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p5-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s5-0",
+              "text": "Copy link copies a public article address. Share opens your device’s sharing interface where available, or copies the address. The site does not receive your selected recipient through these controls. Print / save PDF opens your browser’s print dialog.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "infoSection",
+      "_key": "section-6",
+      "heading": "Correspondence and retention",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p6-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s6-0",
+              "text": "If you contact Richard, the information you choose to send may be used to respond and address your request. Please do not send sensitive personal information that is unnecessary for your question.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p6-1",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s6-1",
+              "text": "Technical-information retention depends on the services used, their settings, and applicable requirements. Provider-specific retention information is described in the notices linked above. No fixed retention period for correspondence is specified in this notice.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "infoSection",
+      "_key": "section-7",
+      "heading": "Your choices and requests",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p7-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s7-0",
+              "text": "Depending on where you live and which laws apply, you may have rights to request access, correction, deletion, or other action concerning your personal information. These rights may have limits or exceptions. A dedicated public contact email is not currently available. Contact details will be added to this page when established. This absence does not limit any rights you have under applicable law.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "infoSection",
+      "_key": "section-8",
+      "heading": "International services and changes",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p8-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s8-0",
+              "text": "Our providers may process information in countries other than your own. Their notices describe their processing and applicable safeguards. We will revise this notice if the site’s practices change.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

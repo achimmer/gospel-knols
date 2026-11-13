@@ -1,0 +1,202 @@
+{
+  "_id": "policy-terms",
+  "_type": "page",
+  "name": "Terms & Disclaimer",
+  "slug": {
+    "_type": "slug",
+    "current": "terms"
+  },
+  "heading": "Terms & Disclaimer",
+  "subheading": "Using, sharing, and understanding the writings on Gospel Knols. Last updated November 13, 2026.",
+  "pageBuilder": [
+    {
+      "_type": "infoSection",
+      "_key": "section-0",
+      "heading": "About Gospel Knols",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p0-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s0-0",
+              "text": "Gospel Knols is an independent publication owned and operated by Richard P. Himmer in Texas, United States. These terms describe the intended use of this website and its articles and downloadable materials.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "infoSection",
+      "_key": "section-1",
+      "heading": "Independent religious commentary",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p1-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s1-0",
+              "text": "The writings express Richard’s interpretations and opinions. They are offered for study and discussion and are not an official Church publication or a statement of the doctrines, policies, or teachings of The Church of Jesus Christ of Latter-day Saints. Gospel Knols is not affiliated with or endorsed by the Church.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p1-1",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s1-1",
+              "text": "Consult original sources and official Church resources when you need authoritative guidance. References are provided to support further study, not to imply that the authors or organizations cited endorse these essays.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "infoSection",
+      "_key": "section-2",
+      "heading": "Accuracy and corrections",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p2-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s2-0",
+              "text": "We aim to present sources and interpretations carefully, but articles may contain errors, omissions, or views that change with further study. Material may be corrected or updated. A downloaded or printed copy may differ from the current online version. A dedicated public contact email is not currently available. This page will be updated when a contact channel is established.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "infoSection",
+      "_key": "section-3",
+      "heading": "Copyright and reuse",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p3-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s3-0",
+              "text": "Richard P. Himmer owns the copyright in his original writings and the graphics he creates. Other images, quotations, and third-party material remain subject to their respective owners’ rights and license terms. Publication on this site does not transfer ownership or grant rights in third-party material.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p3-1",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s3-1",
+              "text": "You may share links to the articles and use the site’s printing and downloading functions to read the material yourself. Prior permission from Richard P. Himmer is required to redistribute articles or PDFs, republish or adapt his material, or use it commercially, including distribution for Church or group study. Permission to use Richard’s material does not include rights to third-party material. Nothing here restricts uses permitted by applicable law or by a separate license from the relevant rights holder. A dedicated public contact email is not currently available. Until permission is obtained, do not assume that redistribution or republication is authorized.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "infoSection",
+      "_key": "section-4",
+      "heading": "External links and downloads",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p4-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s4-0",
+              "text": "Links to other websites are provided for reference or convenience. We do not control their content, availability, privacy practices, or terms. Unless expressly stated, a link does not imply endorsement. Take normal care when opening downloaded files or visiting another website.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "infoSection",
+      "_key": "section-5",
+      "heading": "Availability and responsibility",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p5-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s5-0",
+              "text": "The website and its materials are provided as available, without a guarantee that every statement is complete, current, or free from error, or that access will be uninterrupted. You remain responsible for how you interpret and use the material.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p5-1",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s5-1",
+              "text": "To the extent permitted by applicable law, Richard P. Himmer does not accept liability for loss arising from reliance on the website or its materials. This does not exclude or limit liability or rights that applicable law does not allow to be excluded or limited.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "infoSection",
+      "_key": "section-6",
+      "heading": "Updates and contact",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "p6-0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s6-0",
+              "text": "These terms may be revised as the publication develops. A dedicated public contact email is not currently available and will be added here when established.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
