@@ -21,7 +21,7 @@ export default async function HomePage() {
     <>
       <section className="page-shell home-hero">
         <div className="hero-copy">
-          <h1 className="editorial-title">Clarifying doctrine.<br />Challenging assumptions.</h1>
+          <h1 className="editorial-title home-headline"><span>Clarifying doctrine.</span><span>Challenging assumptions.</span></h1>
           <p className="hero-description">Richard P. Himmer writes about scripture, discipleship, and questions of faith.</p>
           <div className="mt-8 flex flex-wrap items-center gap-5">
             <a href="#essays" className="button-primary">Explore the essays <Arrow /></a>
