@@ -28,7 +28,7 @@ export default async function HomePage() {
             <Link href="/about" className="text-link">Meet the author <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
-        {featured && <Link href={`/posts/${featured.slug}`} className="featured-card group">
+        {featured && <a href={`/posts/${featured.slug}`} className="featured-card group">
           <CoverImage image={featured.coverImage} priority className="featured-image" sizes="(max-width: 900px) calc(100vw - 48px), 500px" />
           <div className="featured-copy">
             <div className="flex flex-wrap items-center justify-between gap-3"><span className="featured-label">Latest essay</span><span className="meta"><DateComponent dateString={featured.date} /></span></div>
@@ -36,7 +36,7 @@ export default async function HomePage() {
             {featured.excerpt && <p className="line-clamp-3">{featured.excerpt}</p>}
             <span className="mt-6 inline-flex items-center gap-3 text-sm font-semibold text-forest">Read the essay <Arrow className="transition-transform group-hover:translate-x-1" /></span>
           </div>
-        </Link>}
+        </a>}
       </section>
       <section id="essays" className="collection-section">
         <div className="page-shell">
