@@ -9,22 +9,22 @@ type InfoProps = {
 
 export default function CTA({ block }: InfoProps) {
   return (
-    <div className="container my-12">
-      <div className="max-w-3xl">
+    <div className="cms-info-section">
+      <div className="cms-info-content">
         {block?.heading && (
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+          <h2 className="cms-info-heading">
             {block.heading}
           </h2>
         )}
         {block?.subheading && (
-          <span className="block mt-4 mb-8 text-lg uppercase font-light text-gray-900/70">
+          <span className="cms-info-subheading">
             {block.subheading}
           </span>
         )}
         <div className="mt-4">
           {block?.content?.length && (
             <PortableText
-              className=""
+              className="reading-prose cms-page-prose"
               value={block.content}
             />
           )}

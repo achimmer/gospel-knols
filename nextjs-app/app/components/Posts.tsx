@@ -16,5 +16,5 @@ export function EssayList({posts}: {posts: ListedPost[]}) {
 export async function MorePosts({skip, limit}: {skip: string; limit: number}) {
   const {data} = await sanityFetch({query: morePostsQuery, params: {skip, limit}});
   if (!data?.length) return null;
-  return <section className="related-section no-print"><div className="page-shell"><p className="eyebrow">From the collection</p><h2 className="section-title">Continue exploring.</h2><EssayList posts={data} /></div></section>;
+  return <section className="related-section no-print"><div className="page-shell"><h2 className="section-title">More essays</h2><EssayList posts={data} /></div></section>;
 }

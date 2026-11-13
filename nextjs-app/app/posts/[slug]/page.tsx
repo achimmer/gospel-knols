@@ -82,8 +82,7 @@ export default async function PostPage(props: Props) {
 
   const endmatter = articleEndmatter(post);
   const {minutes, headings, headingOffset} = articleDetails(endmatter.body);
-  if (endmatter.references.length) headings.push({id: "article-references", text: "References", level: 2});
-  if (endmatter.disclaimer.length) headings.push({id: "article-disclaimer", text: "Disclaimer", level: 2});
+  if (endmatter.references.length) headings.push({id: "article-references", text: "References", level: Math.min(...headings.map((item) => item.level), 2)});
   const canonical = new URL(`/posts/${params.slug}`, getSiteUrl()).href;
   const authorName = [post.author?.firstName, post.author?.lastName].filter(Boolean).join(" ");
   const structuredData = {

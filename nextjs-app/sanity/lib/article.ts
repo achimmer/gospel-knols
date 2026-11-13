@@ -5,9 +5,20 @@ export function articleDetails(content: readonly TextItem[] | null | undefined) 
   const blocks = content?.filter((block) => block._type === "block") || [];
   const textOf = (block: TextItem) => stegaClean(block.children?.map((span) => span.text || "").join("") || "");
   const words = blocks.map(textOf).join(" ").trim().split(/\s+/).filter(Boolean).length;
-  const headings = blocks.filter((block) => /^h[1-3]$/.test(block.style || ""))
-    .map((block) => ({id: block._key, text: textOf(block), level: Number(block.style?.slice(1))})).filter((item) => item.text);
-  return {minutes: Math.max(1, Math.ceil(words / 225)), headings, headingOffset: headings.some((item) => item.level === 1) ? 1 : 0};
+  const sections = articleSections(content || []);
+  const bodyHeadings = sections.filter((section) => section.kind === "body").flatMap((section) => section.blocks)
+    .filter((block) => /^h[1-3]$/.test(block.style || ""));
+  const topLevel = Math.min(...bodyHeadings.map((block) => Number(block.style?.slice(1))), 3);
+  const headings = sections.flatMap((section) => {
+    if (section.kind === "disclaimer") return [];
+    if (section.kind === "references") {
+      const first = section.blocks[0];
+      return [{id: first._key, text: textOf(first), level: topLevel}];
+    }
+    return section.blocks.filter((block) => /^h[1-3]$/.test(block.style || ""))
+      .map((block) => ({id: block._key, text: textOf(block), level: Number(block.style?.slice(1))}));
+  }).filter((item) => item.text);
+  return {minutes: Math.max(1, Math.ceil(words / 225)), headings, headingOffset: blocks.some((block) => block.style === "h1") ? 1 : 0};
 }
 
 /** Presentation-only grouping. Keep the original blocks, order, text, and keys. */

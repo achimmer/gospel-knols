@@ -3,8 +3,8 @@ import {notFound} from "next/navigation";
 
 import PageBuilderPage from "@/app/components/PageBuilder";
 import { sanityFetch } from "@/sanity/lib/live";
-import { getPageQuery, pagesSlugs } from "@/sanity/lib/queries";
-import { GetPageQueryResult } from "@/sanity.types";
+import { pagesSlugs } from "@/sanity/lib/queries";
+import {getPageContent} from "@/sanity/lib/page-content";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -30,46 +30,32 @@ export async function generateStaticParams() {
  */
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
-  const { data: page } = await sanityFetch({
-    query: getPageQuery,
-    params,
-    // Metadata should never contain stega
-    stega: false,
-  });
+  const {page, localDraft} = await getPageContent(params.slug, false);
 
   return {
     title: page?.name,
-    description: page?.heading,
+    description: page?.subheading || page?.heading,
+    alternates: {canonical: `/${params.slug}`},
+    ...(localDraft ? {robots: {index: false, follow: false}} : {}),
   } satisfies Metadata;
 }
 
 export default async function Page(props: Props) {
   const params = await props.params;
-  const [{ data: page }] = await Promise.all([
-    sanityFetch({ query: getPageQuery, params }),
-  ]);
+  const {page, localDraft} = await getPageContent(params.slug);
 
   if (!page?._id) {
     return notFound();
   }
 
   return (
-    <div className="my-12 lg:my-24">
-      <div className="">
-        <div className="container">
-          <div className="pb-6 border-b border-gray-100">
-            <div className="max-w-3xl">
-              <h1 className="text-4xl font-bold tracking-tight text-stone-600 sm:text-5xl lg:text-7xl">
-                {page.heading}
-              </h1>
-              <p className="mt-4 text-base lg:text-lg leading-relaxed text-stone-600 uppercase font-light">
-                {page.subheading}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <PageBuilderPage page={page as GetPageQueryResult} />
-    </div>
+    <article className="cms-page page-shell">
+      {localDraft && <aside className="policy-review-note"><strong>Local draft — not published.</strong> The public contact address and retention practices need confirmation before release.</aside>}
+      <header className="cms-page-header">
+        <h1 className="editorial-title">{page.heading}</h1>
+        {page.subheading && <p>{page.subheading}</p>}
+      </header>
+      <PageBuilderPage page={page} />
+    </article>
   );
 }
